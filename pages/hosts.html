@@ -168,19 +168,30 @@
             paging: false,
             ajax: {
                 url: url,
-                dataSrc: 'devices'
+                dataSrc: ''
             },
             "createdRow": function (data) {
                 data.lastSeen = Date(data.lastSeen);
                 console.log(data);
             },
 
+            <!-- Columns fixed -->
             columns: [
                 {data: 'mac'},
                 {data: 'ipv4'},
                 {data: 'ipv6'},
-                {data: 'attachmentPoint[0].switchDPID'},
-                {data: 'attachmentPoint[0].port'},
+                {
+                    data: 'attachmentPoint',
+                    render: function (data, type, row) {
+                        return (data && data.length > 0) ? data[0].switchDPID : 'N/A';
+                    }
+                },
+                {
+                    data: 'attachmentPoint',
+                    render: function (data, type, row) {
+                        return (data && data.length > 0) ? data[0].port : 'N/A';
+                    }
+                },
                 {data: 'lastSeen'}
             ]
         });

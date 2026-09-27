@@ -217,8 +217,8 @@
                         if (hosts[i].hasOwnProperty("trueAttachmentPoint") && hosts[i]["trueAttachmentPoint"][0] != null) {
                             edges.push({
                                 from: "h" + hosts[i]["mac"]
-                                , to: "s" + hosts[i]["trueAttachmentPoint"][0].switch, length: EDGE_LENGTH_MAIN,
-                                title: hosts[i]["trueAttachmentPoint"][0].switch + "/" + hosts[i]["trueAttachmentPoint"][0].port,
+                                , to: "s" + hosts[i]["trueAttachmentPoint"][0].switchDPID, length: EDGE_LENGTH_MAIN,
+                                title: hosts[i]["trueAttachmentPoint"][0].switchDPID + "/" + hosts[i]["trueAttachmentPoint"][0].port,
                                 color: 'green',
                                 width: 2
                             });
@@ -226,8 +226,8 @@
                         else {
                             edges.push({
                                 from: "h" + hosts[i]["mac"]
-                                , to: "s" + hosts[i]["attachmentPoint"][0].switch, length: EDGE_LENGTH_MAIN,
-                                title: hosts[i]["attachmentPoint"][0].switch + "/" + hosts[i]["attachmentPoint"][0].port,
+                                , to: "s" + hosts[i]["attachmentPoint"][0].switchDPID, length: EDGE_LENGTH_MAIN,
+                                title: hosts[i]["attachmentPoint"][0].switchDPID + "/" + hosts[i]["attachmentPoint"][0].port,
                                 color: 'green',
                                 width: 2
                             });
@@ -276,7 +276,7 @@
             success: function (flowobject) {
                 for (var i = 0; i < flowobject["flows"].length; i++) {
                     flowString += "Flow " + i + ":";
-                    flowString += "<br>&nbsp;&nbsp;&nbsp;Packet count: " + JSON.stringify(flowobject["flows"][i]["packet_count"]);
+                    flowString += "<br>&nbsp;&nbsp;&nbsp;Packet count: " + JSON.stringify(flowobject["flows"][i]["packetCount"]);
                     flowString += "<br>&nbsp;&nbsp;&nbsp;Matches: " + JSON.stringify(flowobject["flows"][i]["match"]);
                     if (flowobject["flows"][i]["version"] == "OF_13") {
                         flowString += "<br>&nbsp;&nbsp;&nbsp;Actions: " + JSON.stringify(flowobject["flows"][i]["instructions"]["instruction_apply_actions"]["actions"]);
@@ -321,7 +321,6 @@
         $.ajax({
             url: "http://" + ipaddress + ":" + restport + "/wm/device/",
             success: function (hosts) {
-                hosts = hosts.devices;
                 console.log(hosts);
                 for (var i = 0; i < hosts.length; i++) {
 
