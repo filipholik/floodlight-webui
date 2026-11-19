@@ -265,9 +265,11 @@
                                 <label>
                                     <input type="radio" id="rbUDP" name="check3"> UDP
                                 </label>
-
                                 <label>
                                     <input type="radio" id="rbICMP" name="check3"> ICMP
+                                </label>
+                                 <label>
+                                    <input type="radio" id="rbANY" name="check3"> ANY
                                 </label>
                             </div>
 
@@ -516,7 +518,8 @@
 
         if ($("#rbTCP").is(':checked')) nw_proto = "TCP";
         else if ($("#rbUDP").is(':checked')) nw_proto = "UDP";
-        else nw_proto = "ICMP";
+        else if ($("#rbICMP").is(':checked')) nw_proto = "ICMP";
+        else nw_proto = "ANY";
 
         var tp_src = $("#tp-src").val();
         var tp_dst = $("#tp-dst").val();
